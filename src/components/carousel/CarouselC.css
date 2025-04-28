@@ -1,0 +1,104 @@
+.carousel-container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  
+  .tech-carousel {
+    position: relative;
+  }
+  
+  .carousel-image {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    filter: brightness(0.9);
+  }
+  
+  .carousel-caption {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 80%;
+    margin: 0 auto;
+    left: 10%;
+    right: 10%;
+    bottom: 40px;
+  }
+  
+  .carousel-caption h3 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #ffffff;
+  }
+  
+  .carousel-caption p {
+    font-size: 1.1rem;
+    color: #f0f0f0;
+  }
+  
+  
+  .carousel-indicators {
+    bottom: 15px;
+  }
+  
+  .carousel-indicators button {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.6);
+    margin: 0 5px;
+  }
+  
+  .carousel-indicators .active {
+    background-color: #fff;
+  }
+  
+  
+  .carousel-control-prev, .carousel-control-next {
+    width: 5%;
+    opacity: 0.7;
+  }
+  
+  .carousel-control-prev:hover, .carousel-control-next:hover {
+    opacity: 1;
+  }
+  
+  
+  @media (max-width: 768px) {
+    .carousel-image {
+      height: 350px;
+    }
+    
+    .carousel-caption h3 {
+      font-size: 1.4rem;
+    }
+    
+    .carousel-caption p {
+      font-size: 1rem;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .carousel-image {
+      height: 250px;
+    }
+    
+    .carousel-caption {
+      padding: 10px;
+      bottom: 20px;
+    }
+    
+    .carousel-caption h3 {
+      font-size: 1.1rem;
+    }
+    
+    .carousel-caption p {
+      font-size: 0.9rem;
+    }
+  }
+  
