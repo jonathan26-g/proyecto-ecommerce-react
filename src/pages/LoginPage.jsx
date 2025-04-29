@@ -1,11 +1,14 @@
-import React from 'react'
+import FormC from "../components/form/FormC"
+import { useChangeTitle } from "../components/helpers/useChangeTitlePage"
 
 const LoginPage = () => {
+  useChangeTitle('login')
   return (
-    <div>
-      
-    </div>
+   <>
+   <FormC idPage='Login'/>
+   </>
   )
 }
 
 export default LoginPage
+
