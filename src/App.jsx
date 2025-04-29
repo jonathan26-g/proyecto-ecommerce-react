@@ -6,7 +6,7 @@ import FooterC from "./components/footer/FooterC";
 import LoginPage from "./pages/LoginPage";
 import ProductDetail from "./pages/ProductDetail";
 import RegisterPage from "./pages/RegisterPage";
-import Contact from "./pages/Contact";
+
 import UserPage from "./pages/UserPage";
 import AdminPage from "./pages/AdminPage";
 import AdminUsersPage from "./pages/AdminUsersPage";
@@ -65,7 +65,7 @@ function App() {
 
             <Route path="/" element={<HomePage />} />
             <Route path="/AboutUs" element={<AboutUs />} />
-            <Route path="/Contact" element={<Contact />} />
+            
             <Route path="/loginPage" element={<LoginPage />} />
             <Route path="/registerPage" element={<RegisterPage />} />
             <Route path="/ProductDetail/:id" element={<ProductDetail />} />
