@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import CardC from "../components/card/CardC";
 import { Col, Container, Row } from "react-bootstrap";
 import productosData from "../Producto.json";
-import { useChangeTitle } from "../components/helpers/useChangeTitlePage";
+import { useChangeTitle } from "../helpers/useChangeTitlePage";
 
 const HomePage = () => {
   useChangeTitle('home')
