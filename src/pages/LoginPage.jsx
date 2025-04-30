@@ -1,5 +1,5 @@
 import FormC from "../components/form/FormC"
-import { useChangeTitle } from "../components/helpers/useChangeTitlePage"
+import { useChangeTitle } from "../helpers/useChangeTitlePage"
 
 const LoginPage = () => {
   useChangeTitle('login')
