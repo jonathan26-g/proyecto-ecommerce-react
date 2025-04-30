@@ -86,12 +86,13 @@ const NavbarC = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
 
-            
+          
             {usuarioLog && usuarioLog.rol === 'usuario' ? (
               <Nav className="me-auto">
                 <NavLink to="/UserPage" className="custom-link text-decoration-none">Inicio</NavLink>
                 <NavLink to="/UserCartPage" className="custom-link text-decoration-none">Carrito</NavLink>
-                <NavLink to="/Favorito" className="custom-link text-decoration-none">Favoritos</NavLink>
+                <NavLink to="/UserFavoritos" className="custom-link text-decoration-none">Favoritos</NavLink>
+               
               </Nav>
             ) : usuarioLog && usuarioLog.rol === 'admin' ? (
               <Nav className="me-auto">
@@ -165,4 +166,3 @@ const NavbarC = () => {
 };
 
 export default NavbarC;
-

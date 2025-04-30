@@ -7,6 +7,7 @@ const ProductDetail = () => {
   const navigate = useNavigate();
   const { id } = useParams(); 
   const [producto, setProducto] = useState(null);
+  const [esFavorito, setEsFavorito] = useState(false); 
 
   useEffect(() => {
     const productosLs = JSON.parse(localStorage.getItem("productos")) || [];
@@ -17,10 +18,50 @@ const ProductDetail = () => {
     if (productoEncontrado) {
       setProducto(productoEncontrado);
     }
+
+    
+    const usuario = localStorage.getItem("usuarioActual") || "invitado";
+    const key = `wishlist_${usuario}`;
+    const listaIds = JSON.parse(localStorage.getItem(key)) || [];
+    if (listaIds.includes(Number(id))) {
+      setEsFavorito(true);
+    }
   }, [id]);
 
   
   if (!producto) return <p>Cargando producto...</p>;
+
+  
+  const agregarAFavoritos = () => {
+    const usuario = localStorage.getItem("usuarioActual") || "invitado";
+    const key = `wishlist_${usuario}`;
+    const listaIds = JSON.parse(localStorage.getItem(key)) || [];
+    if (!listaIds.includes(Number(id))) {
+      listaIds.push(Number(id));
+      localStorage.setItem(key, JSON.stringify(listaIds));
+      setEsFavorito(true); 
+      Swal.fire({
+        icon: "success",
+        title: "Producto agregado a favoritos",
+        text: "Ahora puedes verlo en tu lista de favoritos.",
+      });
+    }
+  };
+
+  
+  const quitarDeFavoritos = () => {
+    const usuario = localStorage.getItem("usuarioActual") || "invitado";
+    const key = `wishlist_${usuario}`;
+    let listaIds = JSON.parse(localStorage.getItem(key)) || [];
+    listaIds = listaIds.filter((idFavorito) => idFavorito !== Number(id)); 
+    localStorage.setItem(key, JSON.stringify(listaIds));
+    setEsFavorito(false); 
+    Swal.fire({
+      icon: "info",
+      title: "Producto eliminado de favoritos",
+      text: "Ya no está en tu lista de favoritos.",
+    });
+  };
 
   const agregarProductoCarrito = () => {
     const usuarioLogeado = JSON.parse(sessionStorage.getItem('usuarioLogeado')) || null;
@@ -29,8 +70,8 @@ const ProductDetail = () => {
     if (!usuarioLogeado) {
       Swal.fire({
         icon: "info",
-        title: "Debes iniciar sesion para poder comprar",
-        text: "En breve seras redirigido a iniciar tu sesion",
+        title: "Debes iniciar sesión para poder comprar",
+        text: "En breve serás redirigido a iniciar tu sesión",
       });
 
       setTimeout(() => {
@@ -44,7 +85,7 @@ const ProductDetail = () => {
     if (productoExisteCarrito) {
       Swal.fire({
         icon: "info",
-        title: "El producto ya esta cargado en el carrito",
+        title: "El producto ya está cargado en el carrito",
         text: "Para modificar la cantidad debes ir al carrito",
       });
       return;
@@ -54,8 +95,8 @@ const ProductDetail = () => {
     localStorage.setItem('carrito', JSON.stringify(carritoLs));
     Swal.fire({
       icon: "success",
-      title: "El producto se cargo al carrito con exito",
-      text: "Podes modificar la cantidad desde el carrito",
+      title: "El producto se cargó al carrito con éxito",
+      text: "Puedes modificar la cantidad desde el carrito",
     });
   };
 
@@ -65,8 +106,8 @@ const ProductDetail = () => {
     if (!usuarioLogeado) {
       Swal.fire({
         icon: "info",
-        title: "Debes iniciar sesion para poder comprar",
-        text: "En breve seras redirigido a iniciar tu sesion",
+        title: "Debes iniciar sesión para poder comprar",
+        text: "En breve serás redirigido a iniciar tu sesión",
       });
 
       setTimeout(() => {
@@ -75,7 +116,7 @@ const ProductDetail = () => {
       return;
     }
 
-   
+    
   };
 
   return (
@@ -89,12 +130,23 @@ const ProductDetail = () => {
           <p className="producto-detalles">${producto.price}</p>
           <p className="producto-detalle-descripcion">{producto.description}</p>
 
-          <Button className="mx-3 producto-boton" variant="warning"  onClick={agregarProductoCarrito}>
+          <Button className="mx-3 producto-boton" variant="warning" onClick={agregarProductoCarrito}>
             Agregar al Carrito
           </Button>
           <Button className="producto-boton" variant="success" onClick={comprarProductoMP}>
             Comprar
           </Button>
+
+          
+          {esFavorito ? (
+            <Button className="producto-boton" variant="danger" onClick={quitarDeFavoritos}>
+              Quitar de Favoritos
+            </Button>
+          ) : (
+            <Button className=" producto-boton" variant="primary" onClick={agregarAFavoritos}>
+              Agregar a Favoritos
+            </Button>
+          )}
         </Col>
       </Row>
     </Container>
