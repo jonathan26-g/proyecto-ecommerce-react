@@ -49,7 +49,7 @@ const FormAdmin = () => {
 
 
       setTimeout(() => {
-        navigate('/admin/products')
+        navigate('/adminPage/products')
       }, 500);
     }
   }
@@ -68,7 +68,7 @@ const FormAdmin = () => {
 
 
     setTimeout(() => {
-      navigate('/admin/products')
+      navigate('/adminPage/products')
     }, 500);
 
   }

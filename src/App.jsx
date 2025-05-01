@@ -52,7 +52,7 @@ function App() {
               </PrivateRoute>
             } />
 
-            <Route path="/Admin/Product/createUpdate" element={
+            <Route path="/AdminCreateUpdateProduct" element={
               <PrivateRoute rol="admin">
                 <AdminCreateUpdateProduct />
               </PrivateRoute>

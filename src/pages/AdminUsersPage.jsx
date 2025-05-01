@@ -30,7 +30,7 @@ const AdminUsersPage = () => {
     return (
         <Container className="my-5">
             <div className="d-flex justify-content-end mb-3">
-                <Link className="btn btn-primary" to="/admin/users/create">Agregar Usuario</Link>
+                <Link className="btn btn-primary" to="/admin/users/">Agregar Usuario</Link>
             </div>
 
             <TableC array={usuarios} idPage="users" />
