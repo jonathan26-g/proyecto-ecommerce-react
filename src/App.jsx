@@ -33,7 +33,7 @@ function App() {
 
         <div className="main-content">
           <Routes>
-            {/* Rutas Privadas */}
+            
             <Route path="/AdminPage" element={
               <PrivateRoute rol="admin">
                 <AdminPage />
