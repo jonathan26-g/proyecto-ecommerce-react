@@ -32,22 +32,25 @@ const AdminProductsPage = () => {
     <Container className='my-5'>
       <div className="d-flex justify-content-end mb-3">
       
-        <Button
-          variant="primary"
-          onClick={() => {
-            if (usuarioLog && usuarioLog.rol !== 'admin') {
-              Swal.fire({
-                title: "Debes iniciar sesión como administrador!",
-                icon: "info"
-              });
-              setTimeout(() => {
-                navigate('/LoginPage');
-              }, 1000);
-            }
-          }}
-        >
-          Agregar Producto
-        </Button>
+      <Button
+  variant="primary"
+  onClick={() => {
+    if (usuarioLog && usuarioLog.rol === 'admin') {
+      navigate('/AdminCreateUpdateProduct');
+    } else {
+      Swal.fire({
+        title: "Debes iniciar sesión como administrador!",
+        icon: "info"
+      });
+      setTimeout(() => {
+        navigate('/LoginPage');
+      }, 1000);
+    }
+  }}
+>
+  Agregar Producto
+</Button>
+
       </div>
 
       <TableC array={productos} idPage='products' funcionReseteador={obtenerProductos} />

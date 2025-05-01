@@ -5,12 +5,7 @@ import Swal from 'sweetalert2';
 
 const TableC = ({ array, idPage, funcionReseteador }) => {
   const navigate = useNavigate();
-
   const usuarioLog = JSON.parse(sessionStorage.getItem('usuarioLogeado'));
-
-  const esAdmin = () => {
-    return usuarioLog && usuarioLog.rol === 'admin'; 
-  };
 
   const validarSesion = () => {
     if (!usuarioLog || usuarioLog.rol !== 'admin') {
@@ -26,11 +21,11 @@ const TableC = ({ array, idPage, funcionReseteador }) => {
     return true;
   };
 
-  const borrarProducto = (idProducto) => {
+  const borrarElemento = (idElemento) => {
     if (!validarSesion()) return;
 
     Swal.fire({
-      title: "¿Estás seguro de que quieres eliminar este producto?",
+      title: `¿Estás seguro de que quieres eliminar este ${idPage === 'products' ? 'producto' : 'usuario'}?`,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -39,25 +34,25 @@ const TableC = ({ array, idPage, funcionReseteador }) => {
       cancelButtonText: "No, cancelar"
     }).then((result) => {
       if (result.isConfirmed) {
-        const nuevoArray = array.filter((producto) => producto.id !== idProducto);
-        localStorage.setItem('productos', JSON.stringify(nuevoArray));
+        const nuevoArray = array.filter((elemento) => elemento.id !== idElemento);
+        localStorage.setItem(idPage === 'products' ? 'productos' : 'usuarios', JSON.stringify(nuevoArray));
         funcionReseteador();
 
         Swal.fire({
-          title: "¡Producto eliminado con éxito!",
+          title: `${idPage === 'products' ? 'Producto' : 'Usuario'} eliminado con éxito!`,
           icon: "success"
         });
       }
     });
   };
 
-  const deshabilitarOhabilitarProducto = (idProducto) => {
+  const deshabilitarOhabilitarElemento = (idElemento) => {
     if (!validarSesion()) return;
 
-    const producto = array.find((producto) => producto.id === idProducto);
+    const elemento = array.find((e) => e.id === idElemento);
 
     Swal.fire({
-      title: `¿Estás seguro de que quieres ${producto.status === 'enable' ? 'deshabilitar' : 'habilitar'} este producto?`,
+      title: `¿Estás seguro de que quieres ${elemento.status === 'enable' ? 'deshabilitar' : 'habilitar'} este ${idPage === 'products' ? 'producto' : 'usuario'}?`,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -66,22 +61,26 @@ const TableC = ({ array, idPage, funcionReseteador }) => {
       cancelButtonText: "No, cancelar"
     }).then((result) => {
       if (result.isConfirmed) {
-        producto.status = producto.status === 'enable' ? 'disabled' : 'enable';
-        localStorage.setItem('productos', JSON.stringify(array));
+        elemento.status = elemento.status === 'enable' ? 'disabled' : 'enable';
+        localStorage.setItem(idPage === 'products' ? 'productos' : 'usuarios', JSON.stringify(array));
         funcionReseteador();
 
         Swal.fire({
-          title: `¡Producto ${producto.status === 'enable' ? 'habilitado' : 'deshabilitado'} con éxito!`,
+          title: `${idPage === 'products' ? 'Producto' : 'Usuario'} ${elemento.status === 'enable' ? 'habilitado' : 'deshabilitado'} con éxito!`,
           icon: "success"
         });
       }
     });
   };
 
-  const editarProducto = (idProducto) => {
+  const editarElemento = (idElemento) => {
     if (!validarSesion()) return;
 
-    navigate(`/admin/products/createUpdate?id=${idProducto}`);
+    navigate(
+      idPage === 'products'
+        ? `/admin/products/createUpdate?id=${idElemento}`
+        : `/admin/users/edit?id=${idElemento}`
+    );
   };
 
   return (
@@ -106,78 +105,41 @@ const TableC = ({ array, idPage, funcionReseteador }) => {
           </tr>
         )}
       </thead>
-
       <tbody>
-        {array.map((element, i) => {
-          if (idPage === 'products') {
-            return (
-              <tr key={element.id}>
-                <td>{i + 1}</td>
-                <td className='w-25'>{element.title}</td>
-                <td className='w-25'>{element.description}</td>
-                <td className='text-center'>${element.price}</td>
-                <td>
-                  <img src={element.image} alt={element.description} width={50} />
-                </td>
-                <td>
-                  <Button
-                    variant='danger'
-                    onClick={() => borrarProducto(element.id)}
-                  >
-                    Eliminar
-                  </Button>
-
-                  <Button
-                    className='mx-2'
-                    variant={element.status === 'enable' ? 'warning' : 'info'}
-                    onClick={() => deshabilitarOhabilitarProducto(element.id)}
-                  >
-                    {element.status === 'enable' ? 'Deshabilitar' : 'Habilitar'}
-                  </Button>
-
-                  <Button
-                    variant='success'
-                    onClick={() => editarProducto(element.id)}
-                  >
-                    Editar
-                  </Button>
-                </td>
-              </tr>
-            );
-          } else {
-            return (
-              <tr key={element.id}>
-                <td>{i + 1}</td>
-                <td>{element.nombreUsuario}</td>
-                <td className='w-25'>{element.emailUsuario}</td>
-                <td>{element.rol}</td>
-                <td>
-                  <Button
-                    variant='danger'
-                    onClick={() => Swal.fire('Función pendiente')}
-                  >
-                    Eliminar
-                  </Button>
-
-                  <Button
-                    className='mx-2'
-                    variant='warning'
-                    onClick={() => Swal.fire('Función pendiente')}
-                  >
-                    Deshabilitar
-                  </Button>
-
-                  <Button
-                    variant='success'
-                    onClick={() => Swal.fire('Función pendiente')}
-                  >
-                    Editar
-                  </Button>
-                </td>
-              </tr>
-            );
-          }
-        })}
+        {array.map((element, i) =>
+          idPage === 'products' ? (
+            <tr key={element.id}>
+              <td>{i + 1}</td>
+              <td className='w-25'>{element.title}</td>
+              <td className='w-25'>{element.description}</td>
+              <td className='text-center'>${element.price}</td>
+              <td>
+                <img src={element.image} alt={element.description} width={50} />
+              </td>
+              <td>
+                <Button variant='danger' onClick={() => borrarElemento(element.id)}>Eliminar</Button>
+                <Button className='mx-2' variant={element.status === 'enable' ? 'warning' : 'info'} onClick={() => deshabilitarOhabilitarElemento(element.id)}>
+                  {element.status === 'enable' ? 'Deshabilitar' : 'Habilitar'}
+                </Button>
+                <Button variant='success' onClick={() => editarElemento(element.id)}>Editar</Button>
+              </td>
+            </tr>
+          ) : (
+            <tr key={element.id}>
+              <td>{i + 1}</td>
+              <td>{element.nombreUsuario}</td>
+              <td className='w-25'>{element.emailUsuario}</td>
+              <td>{element.rol}</td>
+              <td>
+                <Button variant='danger' onClick={() => borrarElemento(element.id)}>Eliminar</Button>
+                <Button className='mx-2' variant={element.status === 'enable' ? 'warning' : 'info'} onClick={() => deshabilitarOhabilitarElemento(element.id)}>
+                  {element.status === 'enable' ? 'Deshabilitar' : 'Habilitar'}
+                </Button>
+                <Button variant='success' onClick={() => editarElemento(element.id)}>Editar</Button>
+              </td>
+            </tr>
+          )
+        )}
       </tbody>
     </Table>
   );
