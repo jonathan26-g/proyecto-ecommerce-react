@@ -84,7 +84,8 @@ const TableC = ({ array, idPage, funcionReseteador }) => {
   };
 
   return (
-    <Table striped bordered hover>
+    <div className="table-responsive" >
+    <Table striped bordered hover className='mx-0'>
       <thead>
         {idPage === 'products' ? (
           <tr>
@@ -142,6 +143,7 @@ const TableC = ({ array, idPage, funcionReseteador }) => {
         )}
       </tbody>
     </Table>
+    </div>
   );
 };
 

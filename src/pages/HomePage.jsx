@@ -46,7 +46,7 @@ const HomePage = () => {
           {productosHabilitados
             .slice(0, Math.ceil(productosHabilitados.length / 2))
             .map((producto) => (
-              <Col sm="12" md="6" lg="4" key={producto.id} className="my-3">
+              <Col sm="12" md="6" lg="4" key={producto.id} className="my-3 d-flex justify-content-center">
                 <CardC
                   urlImage={producto.image}
                   alt={producto.description}
@@ -73,7 +73,7 @@ const HomePage = () => {
           {productosHabilitados
             .slice(Math.ceil(productosHabilitados.length / 2))
             .map((producto) => (
-              <Col sm="12" md="6" lg="4" key={producto.id} className="my-3">
+              <Col sm="12" md="6" lg="4" key={producto.id} className="my-3 d-flex justify-content-center">
                 <CardC
                   urlImage={producto.image}
                   alt={producto.description}

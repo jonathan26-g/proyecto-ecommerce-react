@@ -160,3 +160,25 @@
       font-style: italic;
     }
     
+
+
+
+    .error-img {
+      max-height: 300px;
+    }
+    
+    @media (max-width: 768px) {
+      .error-img {
+        max-height: 180px;
+      }
+    }
+ 
+
+    .h1-error{
+      font-size: 5rem;
+      font-weight: bold;
+      color:#007bff ;
+    }
+
+  
+    

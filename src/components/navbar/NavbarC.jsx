@@ -84,7 +84,7 @@ const NavbarC = () => {
             GoMiNext
           </NavLink>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
+          <Navbar.Collapse  id="basic-navbar-nav">
 
           
             {usuarioLog && usuarioLog.rol === 'usuario' ? (
@@ -108,7 +108,7 @@ const NavbarC = () => {
             )}
 
             
-            <Form className="d-flex mx-auto" onSubmit={handleBuscarProducto}>
+            <Form className="d-none d-md-flex mx-auto" onSubmit={handleBuscarProducto}>
               <Form.Control
                 type="search"
                 placeholder="Buscar productos"
@@ -139,7 +139,7 @@ const NavbarC = () => {
 
             
             <Nav className="ms-auto align-items-center">
-              <NavLink to="/UserCartPage" className="custom-link text-decoration-none me-3">
+              <NavLink to="/UserCartPage" className="custom-link text-decoration-none me-3 d-none d-md-block">
                 <FaShoppingCart size={24} />
               </NavLink>
 
@@ -147,13 +147,13 @@ const NavbarC = () => {
                 <NavLink
                   to="#"
                   onClick={logoutUser}
-                  className="custom-link text-decoration-none"
+                  className="custom-link text-decoration-none cerrar-sesion"
                 >
                   Cerrar sesión
                 </NavLink>
               ) : (
                 <>
-                  <NavLink to="/LoginPage" className="custom-link text-decoration-none me-3">Iniciar Sesión</NavLink>
+                  <NavLink to="/LoginPage" className="custom-link text-decoration-none cerrar-sesion me-3">Iniciar Sesión</NavLink>
                 </>
               )}
             </Nav>

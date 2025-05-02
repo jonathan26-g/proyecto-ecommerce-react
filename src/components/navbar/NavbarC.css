@@ -3,12 +3,21 @@
 body {
   font-family: 'Montserrat', sans-serif;
 }
-
+.main-content{
+  background-color: #eef1f6;
+}
 .custom-navbar {
   background-color: #3f1d38;
   color: #61dafb;
   padding: 10px;
   position: relative; 
+  margin-bottom: -18px;
+}
+@media (max-width: 991.98px) {
+  .cerrar-sesion {
+    align-self: flex-start;
+    margin-bottom: 1rem;
+  }
 }
 
 .custom-navbar .brand-logo {
@@ -29,8 +38,9 @@ body {
 }
 
 .navbar-toggler {
-  background-color: #61dafb;
+ background-color: #61dafb  !important;
 }
+
 
 .promo-banner {
   background-color: #3f1d38;  

@@ -120,6 +120,7 @@ const ProductDetail = () => {
   };
 
   return (
+    <>
     <Container className="my-5">
       <Row>
         <Col sm="12" md="6" className="col-img-detalle-producto text-center">
@@ -130,26 +131,30 @@ const ProductDetail = () => {
           <p className="producto-detalles">${producto.price}</p>
           <p className="producto-detalle-descripcion">{producto.description}</p>
 
-          <Button className="mx-3 producto-boton" variant="warning" onClick={agregarProductoCarrito}>
+          <div  className="d-flex flex-wrap gap-2 justify-content-center justify-content-md-start mt-3">
+             <Button className="mx-3 producto-boton" variant="warning" onClick={agregarProductoCarrito}>
             Agregar al Carrito
-          </Button>
-          <Button className="producto-boton" variant="success" onClick={comprarProductoMP}>
-            Comprar
-          </Button>
+            </Button>
+           <Button className="producto-boton" variant="success" onClick={comprarProductoMP}>
+             Comprar
+           </Button>
 
           
-          {esFavorito ? (
+           {esFavorito ? (
             <Button className="producto-boton" variant="danger" onClick={quitarDeFavoritos}>
               Quitar de Favoritos
-            </Button>
-          ) : (
+             </Button>
+           ) : (
             <Button className=" producto-boton" variant="primary" onClick={agregarAFavoritos}>
               Agregar a Favoritos
             </Button>
           )}
+          </div>
+         
         </Col>
       </Row>
     </Container>
+    </>
   );
 };
 
