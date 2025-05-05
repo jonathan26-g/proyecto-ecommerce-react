@@ -1,10 +1,14 @@
-import React from 'react'
+import FormC from "../components/form/FormC"
+import { useChangeTitle } from "../helpers/useChangeTitlePage"
 
 const RegisterPage = () => {
+  useChangeTitle('register')
   return (
-    <div>
-      
-    </div>
+    <>
+    
+     <FormC idPage='register'/>
+    
+    </>
   )
 }
 

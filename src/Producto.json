@@ -1,0 +1,130 @@
+[
+    {
+      "id": 1,
+      "title": "Laptop Ultrabook X1",
+      "description": "Potente laptop ultraligera con pantalla 4K.",
+      "price": 1299.99,
+      "image": "https://p3-ofp.static.pub//fes/cms/2025/03/28/owwp0je9qq36queobpv7jlk86xqwd2321070.png",
+      "status": "enable"
+    },
+    {
+      "id": 2,
+      "title": "Smartphone Galaxy S23",
+      "description": "Smartphone de última generación con cámara de alta resolución.",
+      "price": 1999.90,
+      "image": "https://ferbi.com.ar/web/image/product.image/10191/image_1024/Celular%20Samsung%20Galaxy%20S23%20Reacondicionado?unique=fd4f7e4",
+      "status": "enable"
+    },
+    {
+      "id": 3,
+      "title": "Tablet Pro 12.9\"",
+      "description": "Tablet profesional con pantalla Liquid Retina XDR.",
+      "price": 109.00,
+      "image": "https://images.fravega.com/f300/f6b5e45559b9716ba2e6525fa9a2db56.jpg.webp",
+      "status": "enable"
+    },
+      {
+      "id": 4,
+      "title": "Smartwatch Series 8",
+      "description": "Reloj inteligente con funciones avanzadas de salud.",
+      "price": 39.900,
+      "image": "https://cdsassets.apple.com/live/SZLF0YNV/images/sp/111848_apple-watch-series8.png",
+      "status": "enable"
+    },
+    {
+      "id": 5,
+      "title": "Auriculares Inalámbricos Pro",
+      "description": "Auriculares con cancelación de ruido y sonido de alta fidelidad.",
+      "price": 49.499,
+      "image": "https://logitechar.vtexassets.com/arquivos/ids/159530-800-800?v=638485373354170000&width=800&height=800&aspect=true",
+      "status": "enable"
+    },
+    {
+      "id": 6,
+      "title": "Cámara Mirrorless Alpha 7",
+      "description": "Cámara sin espejo con sensor de fotograma completo.",
+      "price": 2499.900,
+      "image": "https://i0.wp.com/www.inovamusicnet.com/wp-content/uploads/2024/05/314PH10-nML._AC_US800_.jpg?fit=800%2C800&ssl=1",
+      "status": "enable"
+    },
+      {
+          "id": 7,
+          "title": "Altavoz Inteligente Echo Dot",
+          "description": "Altavoz inteligente con control por voz y Alexa.",
+          "price": 200.99,
+          "image": "https://http2.mlstatic.com/D_NQ_NP_854146-MLA45739010462_042021-O.webp",
+          "status": "enable"
+      },
+      {
+          "id": 8,
+          "title": "Monitor Curvo Ultrawide",
+          "description": "Monitor curvo de 34 pulgadas para una experiencia inmersiva.",
+          "price": 499.00,
+          "image": "https://mexx-img-2019.s3.amazonaws.com/Monitor-Gamer-34-Lg-Full-Hd-Ultrawide-Curvo-160Hz-1Ms-34GP63A_47262_2.jpeg",
+          "status": "enable"
+      },
+      {
+          "id": 9,
+          "title": "intel core i9-14900ks",
+          "description": "Procesador de escritorio más rápido del mundo, con una frecuencia turbo máxima de 6,2 GHz.",
+          "price": 1364.999,
+          "image": "https://www.canal-ar.com.ar/noticias/images/c_intel_190324_r.jpg",
+          "status": "enable"
+      },
+      {
+          "id": 10,
+          "title": "Procesador Micro AMD Ryzen 7 5700G 4.6 Ghz AM4",
+          "description": "8 nucles , 16 hilos ,grafica integrda Radeon vega 8",
+          "price": 359.999,
+          "image": "https://www.maximus.com.ar/Temp/App_WebSite/App_PictureFiles/Items/100-100001015BOX_600.jpg",
+          "status": "enable"
+      },
+      {
+          "id": 11,
+          "title": "Impresora Multifunción Láser",
+          "description": "Impresora láser multifunción con escáner y copiadora.",
+          "price": 339.123,
+          "image": "https://http2.mlstatic.com/D_NQ_NP_2X_773539-MLA50893842569_072022-F.webp",
+          "status": "enable"
+      },
+      {
+          "id": 12,
+          "title": "Disco Duro Externo SSD 2TB",
+          "description": "Disco duro externo SSD de alta velocidad con 2TB de almacenamiento.",
+          "price": 199.00,
+          "image": "https://http2.mlstatic.com/D_NQ_NP_2X_892999-MLA81312213509_122024-F.webp",
+          "status": "enable"
+      },
+      {
+          "id": 13,
+          "title": "Router WiFi 6",
+          "description": "Router WiFi 6 de alta velocidad para una conexión estable.",
+          "price": 149.00,
+          "image": "https://http2.mlstatic.com/D_NQ_NP_2X_834412-MLU78238144256_082024-F.webp",
+          "status": "enable"
+      },
+      {
+          "id": 14,
+          "title": "Proyector Portátil 4K",
+          "description": "Proyector portátil con resolución 4K y altavoces integrados.",
+          "price": 599.00,
+          "image": "https://http2.mlstatic.com/D_NQ_NP_2X_695517-MLA79496682655_092024-F.webp",
+          "status": "enable"
+      },
+      {
+          "id": 15,
+          "title": "Dron con Cámara 4K",
+          "description": "Dron con cámara 4K y GPS para tomas aéreas impresionantes.",
+          "price": 899.043,
+          "image": "https://http2.mlstatic.com/D_NQ_NP_2X_841957-MLA79220542942_092024-F.webp",
+          "status": "enable"
+      },
+      {
+          "id": 16,
+          "title": "Notebook Vaio",
+          "description": "Notebook Vaio Intel Core I7 1255u W11 16gb 512gb Ssd Fe15 Color Gris Oscuro",
+          "price": 1.399,
+          "image": "https://http2.mlstatic.com/D_NQ_NP_2X_730859-MLU78161247957_082024-F.webp",
+          "status": "enable"
+      }
+  ]

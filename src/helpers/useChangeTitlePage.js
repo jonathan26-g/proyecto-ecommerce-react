@@ -1,11 +1,23 @@
-import React from 'react'
+export const useChangeTitle = (idPage) => {
+  switch (idPage) {
+    case 'home':
+      document.title = 'Pagina Pricipal'
+      break;
+    case 'aboutUs':
+      document.title = 'Sobre Nosotros'
+      break;
+    case 'contact':
+      document.title = 'Contacto'
+      break;
+    case 'login':
+      document.title = 'Iniciar Sesion'
+      break;
+    case 'register':
+      document.title = 'Registrarse'
+      break;
 
-const useChangeTitlePage = () => {
-  return (
-    <div>
-      
-    </div>
-  )
+    default:
+      document.title = 'Error'
+      break;
+  }
 }
-
-export default useChangeTitlePage
