@@ -36,7 +36,7 @@ const AdminProductsPage = () => {
   variant="primary"
   onClick={() => {
     if (usuarioLog && usuarioLog.rol === 'admin') {
-      navigate('/AdminCreateUpdateProduct');
+      navigate('/admin/products/createUpdate');
     } else {
       Swal.fire({
         title: "Debes iniciar sesión como administrador!",
