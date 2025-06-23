@@ -130,7 +130,8 @@ const FormC = ({ idPage }) => {
 
   return (
     <Container className='d-flex flex-column align-items-center justify-content-center my-5'>
-      <Form className='w-25 form-login'>
+      <Form className='form-login w-100 w-sm-100 w-md-75 w-lg-50 w-xl-25'>
+
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Nombre del Usuario</Form.Label>
           <Form.Control
