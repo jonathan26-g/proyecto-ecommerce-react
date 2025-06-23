@@ -1,8 +1,10 @@
 .form-login {
-    margin-top: 80px; 
-  }
-  
+  margin-top: 80px;
+  max-width: 500px;
+  width: 100%;
+}
+
   .lista-contrasenia li { 
     font-size: 0.8em;
   }
-  
+

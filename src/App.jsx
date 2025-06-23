@@ -11,11 +11,14 @@ import UserPage from "./pages/UserPage";
 import AdminPage from "./pages/AdminPage";
 import AdminUsersPage from "./pages/AdminUsersPage";
 import AdminProductsPage from "./pages/AdminProductsPage";
+
+
 import AdminCreateUpdateProduct from "./pages/AdminCreateUpdateProduct";
 import UserCartPage from "./pages/UserCartPage";
 import PrivateRoute from "./components/privateroute/PrivateRoute";
 import ErrorPage from "./pages/ErrorPage"; 
 import './App.css';
+
 
 import UserFavoritos from "./pages/UserFavoritos";
 
@@ -40,6 +43,8 @@ function App() {
               </PrivateRoute>
             } />
 
+           
+
             <Route path="/AdminPage/user" element={
               <PrivateRoute rol="admin">
                 <AdminUsersPage />
@@ -52,7 +57,7 @@ function App() {
               </PrivateRoute>
             } />
 
-            <Route path="/AdminCreateUpdateProduct" element={
+            <Route path="/admin/products/createUpdate" element={
               <PrivateRoute rol="admin">
                 <AdminCreateUpdateProduct />
               </PrivateRoute>

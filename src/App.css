@@ -1,3 +1,5 @@
+
+
 .col-img-detalle-producto img{
     height: 50vh;
     }
@@ -60,7 +62,7 @@
     
     
     .product-detail-description {
-      font-size: 1.3rem; /* 🔥 Más grande */
+      font-size: 1.3rem; 
       color: #6c757d;
       margin-bottom: 2rem;
     }
