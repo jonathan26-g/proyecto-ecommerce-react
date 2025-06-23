@@ -111,7 +111,10 @@ const UserCartPage = () => {
             <Button onClick={handleClickPay}>Comprar</Button>
           </Container>
           :
-          <h1 className='text-center'>No hay productos cargados en el carrito todavía</h1>
+        <h1 className='text-center my-5 px-3'>No hay productos cargados en el carrito todavía</h1>
+
+
+        
       }
     </>
   )
