@@ -23,9 +23,25 @@ const FormC = ({ idPage }) => {
     contrasenia: ''
   });
 
+  
+  const [erroresLogin, setErroresLogin] = useState({});
+
   const handleChangeFormRegister = (ev) => {
     const value = ev.target.type === 'checkbox' ? ev.target.checked : ev.target.value;
     setRegistro({ ...registro, [ev.target.name]: value });
+  };
+
+  const handleCloseModal = () => {
+    setRegistro({
+      usuario: '',
+      email: '',
+      contrasenia: '',
+      repContrasenia: '',
+      check: false,
+      rol: 'usuario'
+    });
+    setErrores({});
+    setShowModal(false);
   };
 
   const registroUsuario = (ev) => {
@@ -33,58 +49,66 @@ const FormC = ({ idPage }) => {
     const { usuario, email, contrasenia, repContrasenia, check } = registro;
     let nuevoError = {};
 
-    if (!usuario) {
-      nuevoError.usuario = 'Error Usuario';
+    if (!usuario) nuevoError.usuario = 'El nombre de usuario es obligatorio';
+    if (!email) nuevoError.email = 'El email es obligatorio';
+    if (!contrasenia) nuevoError.contrasenia = 'La contraseña es obligatoria';
+    if (!repContrasenia) nuevoError.repContrasenia = 'Repetir la contraseña es obligatorio';
+    if (!check) nuevoError.check = 'Debes aceptar los términos y condiciones';
+
+    if (Object.keys(nuevoError).length > 0) {
+      setErrores(nuevoError);
+
+      Swal.fire({
+        icon: "warning",
+        title: "Campos incompletos",
+        text: "Todos los campos son obligatorios. Por favor completá el formulario.",
+      });
+
+      return;
     }
 
-    if (usuario && email && contrasenia && repContrasenia && check) {
-      if (contrasenia === repContrasenia) {
-        const usuariosLs = JSON.parse(localStorage.getItem('usuarios')) || [];
+    if (contrasenia !== repContrasenia) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Las contraseñas no son iguales!",
+      });
+      return;
+    }
 
-        const nuevoUsuario = {
-          id: usuariosLs[usuariosLs.length - 1]?.id + 1 || 1,
-          nombreUsuario: usuario,
-          emailUsuario: email,
-          contrasenia,
-          tyc: check,
-          rol: 'usuario',
-          login: false,
-          status: 'enable'
-        };
+    const usuariosLs = JSON.parse(localStorage.getItem('usuarios')) || [];
 
-        usuariosLs.push(nuevoUsuario);
-        localStorage.setItem('usuarios', JSON.stringify(usuariosLs));
+    const nuevoUsuario = {
+      id: usuariosLs[usuariosLs.length - 1]?.id + 1 || 1,
+      nombreUsuario: usuario,
+      emailUsuario: email,
+      contrasenia,
+      tyc: check,
+      rol: usuario === 'admin' ? 'admin' : 'usuario',
+      login: true,
+      status: 'enable'
+    };
 
-        Swal.fire({
-          title: "Registro exitoso!",
-          text: "En breve serás redirigido al inicio de tu sesión!",
-          icon: "success"
-        });
+    usuariosLs.push(nuevoUsuario);
+    localStorage.setItem('usuarios', JSON.stringify(usuariosLs));
+    sessionStorage.setItem('usuarioLogeado', JSON.stringify(nuevoUsuario));
 
-        setRegistro({
-          usuario: '',
-          email: '',
-          contrasenia: '',
-          repContrasenia: '',
-          check: false,
-          rol: 'usuario'
-        });
+    Swal.fire({
+      title: "Registro exitoso!",
+      text: "Serás redirigido a tu panel.",
+      icon: "success"
+    });
 
-        setShowModal(false);
+    setErrores({});
+    handleCloseModal();
 
-        setTimeout(() => {
-          navigate('/LoginPage');
-        }, 1000);
+    setTimeout(() => {
+      if (usuario === 'admin') {
+        navigate('/AdminPage');
       } else {
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Las contraseñas no son iguales!",
-        });
+        navigate('/UserPage');
       }
-    }
-
-    setErrores(nuevoError);
+    }, 1000);
   };
 
   const handleChangeFormLogin = (ev) => {
@@ -96,9 +120,18 @@ const FormC = ({ idPage }) => {
     const usuariosLs = JSON.parse(localStorage.getItem('usuarios')) || [];
     const { usuario, contrasenia } = inicioSesion;
 
+    let errorLogin = {};
+    if (!usuario) errorLogin.usuario = 'El nombre de usuario es obligatorio';
+    if (!contrasenia) errorLogin.contrasenia = 'La contraseña es obligatoria';
+
+    if (Object.keys(errorLogin).length > 0) {
+      setErroresLogin(errorLogin);
+      return;
+    }
+
     const usuarioExiste = usuariosLs.find((user) => user.nombreUsuario === usuario);
 
-    if (!usuarioExiste) {
+    if (!usuarioExiste || usuarioExiste.contrasenia !== contrasenia) {
       Swal.fire({
         icon: "error",
         title: "Oops...",
@@ -107,30 +140,22 @@ const FormC = ({ idPage }) => {
       return;
     }
 
-    if (usuarioExiste.contrasenia === contrasenia) {
-      usuarioExiste.login = true;
-      const rolCorrecto = usuarioExiste.nombreUsuario === 'admin' ? 'admin' : 'usuario';
-      usuarioExiste.rol = rolCorrecto;
-      localStorage.setItem('usuarios', JSON.stringify(usuariosLs));
-      sessionStorage.setItem('usuarioLogeado', JSON.stringify(usuarioExiste));
+    usuarioExiste.login = true;
+    usuarioExiste.rol = usuario === 'admin' ? 'admin' : 'usuario';
+    localStorage.setItem('usuarios', JSON.stringify(usuariosLs));
+    sessionStorage.setItem('usuarioLogeado', JSON.stringify(usuarioExiste));
 
-      if (usuarioExiste.nombreUsuario === 'admin') {
-        navigate('/AdminPage');
-      } else {
-        navigate('/UserPage');
-      }
+    if (usuario === 'admin') {
+      navigate('/AdminPage');
     } else {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "El usuario y/o contraseña son incorrectos.",
-      });
+      navigate('/UserPage');
     }
   };
 
   return (
     <Container className='d-flex flex-column align-items-center justify-content-center my-5'>
-      <Form className='w-25 form-login'>
+      <Form className='form-login w-100 w-sm-75 w-md-50 w-lg-25' onSubmit={iniciarSesionUsuario} noValidate>
+
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Nombre del Usuario</Form.Label>
           <Form.Control
@@ -139,11 +164,11 @@ const FormC = ({ idPage }) => {
             value={inicioSesion.usuario}
             onChange={handleChangeFormLogin}
             name='usuario'
-            className={errores.usuario ? 'form-control is-invalid' : 'form-control'}
+            isInvalid={!!erroresLogin.usuario}
           />
-          {errores.usuario && (
-            <Form.Text className="text-danger">Campo USUARIO vacío</Form.Text>
-          )}
+          <Form.Control.Feedback type="invalid">
+            {erroresLogin.usuario}
+          </Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -154,13 +179,16 @@ const FormC = ({ idPage }) => {
             name='contrasenia'
             value={inicioSesion.contrasenia}
             onChange={handleChangeFormLogin}
+            isInvalid={!!erroresLogin.contrasenia}
           />
+          <Form.Control.Feedback type="invalid">
+            {erroresLogin.contrasenia}
+          </Form.Control.Feedback>
         </Form.Group>
 
         <Button
           variant="primary"
           type="submit"
-          onClick={iniciarSesionUsuario}
           className="w-100"
         >
           Ingresar
@@ -172,14 +200,14 @@ const FormC = ({ idPage }) => {
         </div>
       </Form>
 
-      
-      <Modal show={showModal} onHide={() => setShowModal(false)}>
+      <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
           <Modal.Title>Registro de Usuario</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form onSubmit={registroUsuario}>
-            <Form.Group className="mb-3">
+          <Form onSubmit={registroUsuario} noValidate>
+
+            <Form.Group className="mb-3" controlId="regUsuario">
               <Form.Label>Nombre de Usuario</Form.Label>
               <Form.Control
                 type="text"
@@ -187,10 +215,14 @@ const FormC = ({ idPage }) => {
                 name="usuario"
                 value={registro.usuario}
                 onChange={handleChangeFormRegister}
+                isInvalid={!!errores.usuario}
               />
+              <Form.Control.Feedback type="invalid">
+                {errores.usuario}
+              </Form.Control.Feedback>
             </Form.Group>
 
-            <Form.Group className="mb-3">
+            <Form.Group className="mb-3" controlId="regEmail">
               <Form.Label>Email</Form.Label>
               <Form.Control
                 type="email"
@@ -198,10 +230,14 @@ const FormC = ({ idPage }) => {
                 name="email"
                 value={registro.email}
                 onChange={handleChangeFormRegister}
+                isInvalid={!!errores.email}
               />
+              <Form.Control.Feedback type="invalid">
+                {errores.email}
+              </Form.Control.Feedback>
             </Form.Group>
 
-            <Form.Group className="mb-3">
+            <Form.Group className="mb-3" controlId="regContrasenia">
               <Form.Label>Contraseña</Form.Label>
               <Form.Control
                 type="password"
@@ -209,7 +245,11 @@ const FormC = ({ idPage }) => {
                 name="contrasenia"
                 value={registro.contrasenia}
                 onChange={handleChangeFormRegister}
+                isInvalid={!!errores.contrasenia}
               />
+              <Form.Control.Feedback type="invalid">
+                {errores.contrasenia}
+              </Form.Control.Feedback>
               <ul className="lista-contrasenia">
                 <li>Una mayúscula</li>
                 <li>Una minúscula</li>
@@ -218,7 +258,7 @@ const FormC = ({ idPage }) => {
               </ul>
             </Form.Group>
 
-            <Form.Group className="mb-3">
+            <Form.Group className="mb-3" controlId="regRepContrasenia">
               <Form.Label>Repetir Contraseña</Form.Label>
               <Form.Control
                 type="password"
@@ -226,16 +266,23 @@ const FormC = ({ idPage }) => {
                 name="repContrasenia"
                 value={registro.repContrasenia}
                 onChange={handleChangeFormRegister}
+                isInvalid={!!errores.repContrasenia}
               />
+              <Form.Control.Feedback type="invalid">
+                {errores.repContrasenia}
+              </Form.Control.Feedback>
             </Form.Group>
 
-            <Form.Group className="mb-3">
+            <Form.Group className="mb-3" controlId="regCheck">
               <Form.Check
                 type="checkbox"
                 label="Aceptar términos y condiciones"
                 name="check"
                 checked={registro.check}
                 onChange={handleChangeFormRegister}
+                isInvalid={!!errores.check}
+                feedback={errores.check}
+                feedbackType="invalid"
               />
             </Form.Group>
 
