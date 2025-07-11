@@ -48,7 +48,7 @@ const FormC = ({ idPage }) => {
     ev.preventDefault();
     const { usuario, email, contrasenia, repContrasenia, check } = registro;
     let nuevoError = {};
-
+    
     if (!usuario) nuevoError.usuario = 'El nombre de usuario es obligatorio';
     if (!email) nuevoError.email = 'El email es obligatorio';
     if (!contrasenia) nuevoError.contrasenia = 'La contraseña es obligatoria';
@@ -154,6 +154,7 @@ const FormC = ({ idPage }) => {
 
   return (
     <Container className='d-flex flex-column align-items-center justify-content-center my-5'>
+
       <Form className='form-login w-100 w-sm-75 w-md-50 w-lg-25' onSubmit={iniciarSesionUsuario} noValidate>
 
         <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -166,9 +167,11 @@ const FormC = ({ idPage }) => {
             name='usuario'
             isInvalid={!!erroresLogin.usuario}
           />
+
           <Form.Control.Feedback type="invalid">
             {erroresLogin.usuario}
           </Form.Control.Feedback>
+
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicPassword">
