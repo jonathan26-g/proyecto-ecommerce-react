@@ -1,10 +1,47 @@
 .form-login {
   margin-top: 80px;
-  max-width: 500px;
-  width: 100%;
+}
+.form-login label {
+  font-size: 1.1rem; 
+  font-weight: 500;  
 }
 
-  .lista-contrasenia li { 
-    font-size: 0.8em;
+
+
+.form-login .form-control {
+  font-size: 1rem;
+  padding: 10px 12px;
+  width: 100%; 
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.lista-contrasenia li {
+  font-size: 0.8em;
+}
+
+@media (min-width: 768px) {
+  .form-login {
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
   }
+
+  .form-login .form-control {
+    font-size: 1.1rem;
+    padding: 12px 15px;
+  }
+}
+
+
+@media (min-width: 992px) {
+  .form-login {
+    max-width: 450px;
+  }
+
+  .form-login .form-control {
+    font-size: 1.2rem;
+    padding: 14px 18px;
+  }
+}
 

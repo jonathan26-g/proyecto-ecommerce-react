@@ -23,13 +23,15 @@ const FormC = ({ idPage }) => {
     contrasenia: ''
   });
 
+  
+  const [erroresLogin, setErroresLogin] = useState({});
+
   const handleChangeFormRegister = (ev) => {
     const value = ev.target.type === 'checkbox' ? ev.target.checked : ev.target.value;
     setRegistro({ ...registro, [ev.target.name]: value });
   };
 
   const handleCloseModal = () => {
-    
     setRegistro({
       usuario: '',
       email: '',
@@ -46,7 +48,6 @@ const FormC = ({ idPage }) => {
     ev.preventDefault();
     const { usuario, email, contrasenia, repContrasenia, check } = registro;
     let nuevoError = {};
-
     
     if (!usuario) nuevoError.usuario = 'El nombre de usuario es obligatorio';
     if (!email) nuevoError.email = 'El email es obligatorio';
@@ -99,7 +100,7 @@ const FormC = ({ idPage }) => {
     });
 
     setErrores({});
-    handleCloseModal(); 
+    handleCloseModal();
 
     setTimeout(() => {
       if (usuario === 'admin') {
@@ -118,6 +119,15 @@ const FormC = ({ idPage }) => {
     ev.preventDefault();
     const usuariosLs = JSON.parse(localStorage.getItem('usuarios')) || [];
     const { usuario, contrasenia } = inicioSesion;
+
+    let errorLogin = {};
+    if (!usuario) errorLogin.usuario = 'El nombre de usuario es obligatorio';
+    if (!contrasenia) errorLogin.contrasenia = 'La contraseña es obligatoria';
+
+    if (Object.keys(errorLogin).length > 0) {
+      setErroresLogin(errorLogin);
+      return;
+    }
 
     const usuarioExiste = usuariosLs.find((user) => user.nombreUsuario === usuario);
 
@@ -144,7 +154,8 @@ const FormC = ({ idPage }) => {
 
   return (
     <Container className='d-flex flex-column align-items-center justify-content-center my-5'>
-      <Form className='form-login w-100 w-sm-75 w-md-50 w-lg-25'>
+
+      <Form className='form-login w-100 w-sm-75 w-md-50 w-lg-25' onSubmit={iniciarSesionUsuario} noValidate>
 
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Nombre del Usuario</Form.Label>
@@ -154,8 +165,13 @@ const FormC = ({ idPage }) => {
             value={inicioSesion.usuario}
             onChange={handleChangeFormLogin}
             name='usuario'
-            className={errores.usuario ? 'form-control is-invalid' : 'form-control'}
+            isInvalid={!!erroresLogin.usuario}
           />
+
+          <Form.Control.Feedback type="invalid">
+            {erroresLogin.usuario}
+          </Form.Control.Feedback>
+
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -166,13 +182,16 @@ const FormC = ({ idPage }) => {
             name='contrasenia'
             value={inicioSesion.contrasenia}
             onChange={handleChangeFormLogin}
+            isInvalid={!!erroresLogin.contrasenia}
           />
+          <Form.Control.Feedback type="invalid">
+            {erroresLogin.contrasenia}
+          </Form.Control.Feedback>
         </Form.Group>
 
         <Button
           variant="primary"
           type="submit"
-          onClick={iniciarSesionUsuario}
           className="w-100"
         >
           Ingresar
@@ -189,8 +208,9 @@ const FormC = ({ idPage }) => {
           <Modal.Title>Registro de Usuario</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form onSubmit={registroUsuario}>
-            <Form.Group className="mb-3">
+          <Form onSubmit={registroUsuario} noValidate>
+
+            <Form.Group className="mb-3" controlId="regUsuario">
               <Form.Label>Nombre de Usuario</Form.Label>
               <Form.Control
                 type="text"
@@ -198,10 +218,14 @@ const FormC = ({ idPage }) => {
                 name="usuario"
                 value={registro.usuario}
                 onChange={handleChangeFormRegister}
+                isInvalid={!!errores.usuario}
               />
+              <Form.Control.Feedback type="invalid">
+                {errores.usuario}
+              </Form.Control.Feedback>
             </Form.Group>
 
-            <Form.Group className="mb-3">
+            <Form.Group className="mb-3" controlId="regEmail">
               <Form.Label>Email</Form.Label>
               <Form.Control
                 type="email"
@@ -209,10 +233,14 @@ const FormC = ({ idPage }) => {
                 name="email"
                 value={registro.email}
                 onChange={handleChangeFormRegister}
+                isInvalid={!!errores.email}
               />
+              <Form.Control.Feedback type="invalid">
+                {errores.email}
+              </Form.Control.Feedback>
             </Form.Group>
 
-            <Form.Group className="mb-3">
+            <Form.Group className="mb-3" controlId="regContrasenia">
               <Form.Label>Contraseña</Form.Label>
               <Form.Control
                 type="password"
@@ -220,7 +248,11 @@ const FormC = ({ idPage }) => {
                 name="contrasenia"
                 value={registro.contrasenia}
                 onChange={handleChangeFormRegister}
+                isInvalid={!!errores.contrasenia}
               />
+              <Form.Control.Feedback type="invalid">
+                {errores.contrasenia}
+              </Form.Control.Feedback>
               <ul className="lista-contrasenia">
                 <li>Una mayúscula</li>
                 <li>Una minúscula</li>
@@ -229,7 +261,7 @@ const FormC = ({ idPage }) => {
               </ul>
             </Form.Group>
 
-            <Form.Group className="mb-3">
+            <Form.Group className="mb-3" controlId="regRepContrasenia">
               <Form.Label>Repetir Contraseña</Form.Label>
               <Form.Control
                 type="password"
@@ -237,16 +269,23 @@ const FormC = ({ idPage }) => {
                 name="repContrasenia"
                 value={registro.repContrasenia}
                 onChange={handleChangeFormRegister}
+                isInvalid={!!errores.repContrasenia}
               />
+              <Form.Control.Feedback type="invalid">
+                {errores.repContrasenia}
+              </Form.Control.Feedback>
             </Form.Group>
 
-            <Form.Group className="mb-3">
+            <Form.Group className="mb-3" controlId="regCheck">
               <Form.Check
                 type="checkbox"
                 label="Aceptar términos y condiciones"
                 name="check"
                 checked={registro.check}
                 onChange={handleChangeFormRegister}
+                isInvalid={!!errores.check}
+                feedback={errores.check}
+                feedbackType="invalid"
               />
             </Form.Group>
 
